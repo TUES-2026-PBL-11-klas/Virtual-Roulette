@@ -1,17 +1,10 @@
 function Roulette({ result }) {
-
   return (
-
-    <div>
-
+    <section className="roulette-section">
       <h2>Wheel</h2>
-
-      <p>Result: {result}</p>
-
-    </div>
-
+      <p className="result-display">Result: {result ?? '—'}</p>
+    </section>
   );
-
 }
 
 export default Roulette;

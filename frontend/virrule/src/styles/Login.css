@@ -1,14 +1,3 @@
-:root {
-  --gold: #c9a84c;
-  --gold-light: #f0d080;
-  --felt: #0a2e1a;
-  --felt-mid: #0d3d22;
-  --card-bg: #0c1f13;
-  --text: #f5ead7;
-  --text-muted: #8a7a5a;
-  --error: #e05c5c;
-}
-
 .login-wrapper {
   width: 100%;
   min-height: 100vh;

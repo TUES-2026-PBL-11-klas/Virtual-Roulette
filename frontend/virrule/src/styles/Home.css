@@ -1,0 +1,368 @@
+/* Home page layout – matches Login casino aesthetic */
+.home-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px 24px 60px;
+  background: radial-gradient(ellipse at center, var(--felt-mid) 0%, var(--felt) 70%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.home-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.06);
+  box-shadow: 0 0 0 80px rgba(201, 168, 76, 0.02);
+  pointer-events: none;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.home-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.home-header p {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Main content grid */
+.home-content {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  z-index: 5;
+}
+
+/* Roulette section card */
+.roulette-section {
+  background: var(--card-bg);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 4px;
+  padding: 32px;
+  box-shadow:
+    0 0 60px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(201, 168, 76, 0.1) inset,
+    0 20px 50px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.roulette-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.roulette-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.roulette-section .result-display {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+/* Chips container */
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: var(--card-bg);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.chip {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a0e00;
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.chip:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.chip.white {
+  background: radial-gradient(circle at 30% 30%, #fff, #e0e0e0);
+}
+
+.chip.red {
+  background: radial-gradient(circle at 30% 30%, #e74c3c, #c0392b);
+}
+
+.chip.blue {
+  background: radial-gradient(circle at 30% 30%, #3498db, #2980b9);
+}
+
+.chip.green {
+  background: radial-gradient(circle at 30% 30%, #2ecc71, #27ae60);
+}
+
+.chip.black {
+  background: radial-gradient(circle at 30% 30%, #34495e, #2c3e50);
+  color: var(--text);
+}
+
+/* Stats section */
+.stats {
+  background: var(--card-bg);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 4px;
+  padding: 24px 32px;
+  box-shadow:
+    0 0 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(201, 168, 76, 0.08) inset;
+}
+
+.stats h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.stats p {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.stats p:last-child {
+  margin-bottom: 0;
+}
+
+/* Chip pile – stacked chips and total */
+.pile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  background: var(--card-bg);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.pile-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.chip-pile {
+  position: relative;
+  min-width: 56px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 8px;
+}
+
+.chip-in-pile {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  font-size: 12px;
+  border-width: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(0, 0, 0, 0.1) inset;
+  transition: transform 0.2s ease;
+}
+
+.pile-total {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 2px;
+}
+
+/* Bet and Clear buttons */
+.bet-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.bet-btn {
+  flex: 1;
+  max-width: 240px;
+  padding: 18px 32px;
+  background: linear-gradient(145deg, #d4af37 0%, var(--gold) 30%, #a07830 100%);
+  background-size: 200% 200%;
+  border: none;
+  border-radius: 2px;
+  color: #1a0e00;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-position 0.5s, box-shadow 0.3s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.4),
+    0 4px 20px rgba(201, 168, 76, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.bet-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.bet-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+}
+
+.bet-btn:hover {
+  background-position: right center;
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.5),
+    0 8px 36px rgba(201, 168, 76, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.bet-btn:hover::after {
+  left: 130%;
+}
+
+.bet-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.3),
+    0 2px 10px rgba(201, 168, 76, 0.2);
+}
+
+.clear-btn {
+  flex: 0 0 auto;
+  padding: 18px 28px;
+  background: gainsboro;
+  background-size: 200% 200%;
+  border: none;
+  border-radius: 2px;
+  color: #1a0e00;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-position 0.5s, box-shadow 0.3s, transform 0.15s;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0, 95, 19, 0.4),
+    0 4px 20px rgba(2, 95, 2, 0.3),
+    inset 0 1px 0 rgba(1, 77, 12, 0.25);
+}
+
+.clear-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.clear-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  transition: left 0.5s;
+}
+
+.clear-btn:hover {
+  background-position: right center;
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.5),
+    0 8px 36px rgba(201, 168, 76, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.clear-btn:hover::after {
+  left: 130%;
+}
+
+.clear-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.3),
+    0 2px 10px rgba(201, 168, 76, 0.2);
+}
