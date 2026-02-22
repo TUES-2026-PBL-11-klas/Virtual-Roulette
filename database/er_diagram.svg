@@ -1,0 +1,247 @@
+<svg width="900" height="580" xmlns="http://www.w3.org/2000/svg" font-family="'Courier New', monospace">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f1117"/>
+      <stop offset="100%" style="stop-color:#1a1d2e"/>
+    </linearGradient>
+    <linearGradient id="tableGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e2235"/>
+      <stop offset="100%" style="stop-color:#161928"/>
+    </linearGradient>
+    <linearGradient id="headerUsers" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="headerSpin" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <linearGradient id="headerBanned" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ef4444"/>
+      <stop offset="100%" style="stop-color:#b91c1c"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="580" fill="url(#bg)"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-width="0.15" opacity="0.3"/>
+  </pattern>
+  <rect width="900" height="580" fill="url(#grid)"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="bold" letter-spacing="3" opacity="0.9">ER ДИАГРАМА — ВИРТУАЛНА РУЛЕТКА</text>
+  <line x1="150" y1="48" x2="750" y2="48" stroke="#3b82f6" stroke-width="1" opacity="0.4"/>
+
+  <!-- ===== USERS TABLE (center) ===== -->
+  <g filter="url(#shadow)">
+    <rect x="330" y="70" width="240" height="220" rx="8" fill="url(#tableGrad)" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect x="330" y="70" width="240" height="36" rx="8" fill="url(#headerUsers)"/>
+    <rect x="330" y="94" width="240" height="12" fill="url(#headerUsers)"/>
+  </g>
+  <text x="450" y="93" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold" letter-spacing="2">USERS</text>
+
+  <!-- Users fields -->
+  <line x1="330" y1="106" x2="570" y2="106" stroke="#3b82f6" stroke-width="0.5" opacity="0.5"/>
+  
+  <!-- PK badge -->
+  <rect x="338" y="112" width="24" height="14" rx="3" fill="#3b82f6" opacity="0.8"/>
+  <text x="350" y="123" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">PK</text>
+  <text x="370" y="123" fill="#60a5fa" font-size="11" font-weight="bold">id</text>
+  <text x="500" y="123" fill="#94a3b8" font-size="10">SERIAL</text>
+
+  <line x1="338" y1="130" x2="562" y2="130" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="342" y="143" fill="#f1f5f9" font-size="11">username</text>
+  <text x="500" y="143" fill="#94a3b8" font-size="10">VARCHAR(50)</text>
+
+  <line x1="338" y1="150" x2="562" y2="150" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="342" y="163" fill="#f1f5f9" font-size="11">password</text>
+  <text x="500" y="163" fill="#94a3b8" font-size="10">VARCHAR(255)</text>
+
+  <line x1="338" y1="170" x2="562" y2="170" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="342" y="183" fill="#f1f5f9" font-size="11">birthdate</text>
+  <text x="500" y="183" fill="#94a3b8" font-size="10">DATE</text>
+
+  <line x1="338" y1="190" x2="562" y2="190" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="342" y="203" fill="#f1f5f9" font-size="11">is_underage</text>
+  <text x="500" y="203" fill="#94a3b8" font-size="10">BOOLEAN</text>
+
+  <line x1="338" y1="210" x2="562" y2="210" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="342" y="223" fill="#f1f5f9" font-size="11">created_at</text>
+  <text x="500" y="223" fill="#94a3b8" font-size="10">TIMESTAMP</text>
+
+  <!-- Constraint badges -->
+  <rect x="338" y="240" width="50" height="14" rx="3" fill="#1d4ed8" opacity="0.7"/>
+  <text x="363" y="251" text-anchor="middle" fill="#bfdbfe" font-size="8">UNIQUE</text>
+  <text x="400" y="251" fill="#94a3b8" font-size="9">username</text>
+  
+  <rect x="338" y="258" width="44" height="14" rx="3" fill="#dc2626" opacity="0.7"/>
+  <text x="360" y="269" text-anchor="middle" fill="#fecaca" font-size="8">NOT NULL</text>
+  <text x="390" y="269" fill="#94a3b8" font-size="9">username, password, birthdate</text>
+
+  <!-- ===== SPIN_HISTORY TABLE (right) ===== -->
+  <g filter="url(#shadow)">
+    <rect x="640" y="160" width="230" height="210" rx="8" fill="url(#tableGrad)" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="640" y="160" width="230" height="36" rx="8" fill="url(#headerSpin)"/>
+    <rect x="640" y="184" width="230" height="12" fill="url(#headerSpin)"/>
+  </g>
+  <text x="755" y="183" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold" letter-spacing="2">SPIN_HISTORY</text>
+
+  <line x1="640" y1="196" x2="870" y2="196" stroke="#10b981" stroke-width="0.5" opacity="0.5"/>
+
+  <rect x="648" y="202" width="24" height="14" rx="3" fill="#10b981" opacity="0.8"/>
+  <text x="660" y="213" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">PK</text>
+  <text x="680" y="213" fill="#34d399" font-size="11" font-weight="bold">id</text>
+  <text x="800" y="213" fill="#94a3b8" font-size="10">SERIAL</text>
+
+  <line x1="648" y1="220" x2="862" y2="220" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <rect x="648" y="226" width="24" height="14" rx="3" fill="#3b82f6" opacity="0.6"/>
+  <text x="660" y="237" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">FK</text>
+  <text x="680" y="237" fill="#f1f5f9" font-size="11">user_id</text>
+  <text x="800" y="237" fill="#94a3b8" font-size="10">INT</text>
+
+  <line x1="648" y1="244" x2="862" y2="244" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="652" y="257" fill="#f1f5f9" font-size="11">number</text>
+  <text x="800" y="257" fill="#94a3b8" font-size="10">INT</text>
+
+  <line x1="648" y1="264" x2="862" y2="264" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="652" y="277" fill="#f1f5f9" font-size="11">color</text>
+  <text x="800" y="277" fill="#94a3b8" font-size="10">VARCHAR(5)</text>
+
+  <line x1="648" y1="284" x2="862" y2="284" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="652" y="297" fill="#f1f5f9" font-size="11">spun_at</text>
+  <text x="800" y="297" fill="#94a3b8" font-size="10">TIMESTAMP</text>
+
+  <!-- Constraints spin_history -->
+  <rect x="648" y="314" width="34" height="14" rx="3" fill="#065f46" opacity="0.9"/>
+  <text x="665" y="325" text-anchor="middle" fill="#6ee7b7" font-size="8">CHECK</text>
+  <text x="690" y="325" fill="#94a3b8" font-size="9">0 ≤ number ≤ 36</text>
+  
+  <rect x="648" y="332" width="34" height="14" rx="3" fill="#065f46" opacity="0.9"/>
+  <text x="665" y="343" text-anchor="middle" fill="#6ee7b7" font-size="8">CHECK</text>
+  <text x="690" y="343" fill="#94a3b8" font-size="9">red / black / green</text>
+
+  <!-- ===== BANNED_USERS TABLE (left) ===== -->
+  <g filter="url(#shadow)">
+    <rect x="30" y="160" width="230" height="190" rx="8" fill="url(#tableGrad)" stroke="#ef4444" stroke-width="1.5"/>
+    <rect x="30" y="160" width="230" height="36" rx="8" fill="url(#headerBanned)"/>
+    <rect x="30" y="184" width="230" height="12" fill="url(#headerBanned)"/>
+  </g>
+  <text x="145" y="183" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold" letter-spacing="2">BANNED_USERS</text>
+
+  <line x1="30" y1="196" x2="260" y2="196" stroke="#ef4444" stroke-width="0.5" opacity="0.5"/>
+
+  <rect x="38" y="202" width="24" height="14" rx="3" fill="#ef4444" opacity="0.8"/>
+  <text x="50" y="213" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">PK</text>
+  <text x="70" y="213" fill="#f87171" font-size="11" font-weight="bold">id</text>
+  <text x="190" y="213" fill="#94a3b8" font-size="10">SERIAL</text>
+
+  <line x1="38" y1="220" x2="252" y2="220" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <rect x="38" y="226" width="24" height="14" rx="3" fill="#3b82f6" opacity="0.6"/>
+  <text x="50" y="237" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">FK</text>
+  <text x="70" y="237" fill="#f1f5f9" font-size="11">user_id</text>
+  <text x="190" y="237" fill="#94a3b8" font-size="10">INT</text>
+
+  <line x1="38" y1="244" x2="252" y2="244" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="42" y="257" fill="#f1f5f9" font-size="11">reason</text>
+  <text x="190" y="257" fill="#94a3b8" font-size="10">VARCHAR(100)</text>
+
+  <line x1="38" y1="264" x2="252" y2="264" stroke="#ffffff" stroke-width="0.2" opacity="0.15"/>
+  <text x="42" y="277" fill="#f1f5f9" font-size="11">banned_at</text>
+  <text x="190" y="277" fill="#94a3b8" font-size="10">TIMESTAMP</text>
+
+  <!-- Constraints banned -->
+  <rect x="38" y="294" width="50" height="14" rx="3" fill="#7f1d1d" opacity="0.9"/>
+  <text x="63" y="305" text-anchor="middle" fill="#fca5a5" font-size="8">UNIQUE</text>
+  <text x="96" y="305" fill="#94a3b8" font-size="9">user_id</text>
+
+  <!-- ===== RELATIONSHIPS ===== -->
+  <!-- users (id) -> spin_history (user_id) -->
+  <path d="M 570 180 Q 605 180 605 245 L 640 245" 
+        stroke="#3b82f6" stroke-width="2" fill="none" 
+        stroke-dasharray="6,3" marker-end="url(#arrowBlue)" filter="url(#glow)"/>
+  
+  <!-- Cardinality labels -->
+  <rect x="572" y="170" width="18" height="14" rx="3" fill="#1e3a8a"/>
+  <text x="581" y="181" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="bold">1</text>
+  <rect x="622" y="232" width="18" height="14" rx="3" fill="#1e3a8a"/>
+  <text x="631" y="243" text-anchor="middle" fill="#93c5fd" font-size="10" font-weight="bold">N</text>
+
+  <!-- users (id) -> banned_users (user_id) -->
+  <path d="M 330 200 Q 295 200 295 245 L 260 245" 
+        stroke="#ef4444" stroke-width="2" fill="none" 
+        stroke-dasharray="6,3" marker-end="url(#arrowRed)" filter="url(#glow)"/>
+
+  <rect x="305" y="190" width="18" height="14" rx="3" fill="#7f1d1d"/>
+  <text x="314" y="201" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="bold">1</text>
+  <rect x="258" y="232" width="18" height="14" rx="3" fill="#7f1d1d"/>
+  <text x="267" y="243" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="bold">1</text>
+
+  <!-- Relationship labels -->
+  <rect x="570" y="195" width="70" height="20" rx="4" fill="#0f1117" stroke="#3b82f6" stroke-width="0.5"/>
+  <text x="605" y="209" text-anchor="middle" fill="#60a5fa" font-size="9">има завъртания</text>
+
+  <rect x="265" y="208" width="60" height="20" rx="4" fill="#0f1117" stroke="#ef4444" stroke-width="0.5"/>
+  <text x="295" y="222" text-anchor="middle" fill="#f87171" font-size="9">е забранен</text>
+
+  <!-- ===== TRIGGERS section ===== -->
+  <rect x="270" y="400" width="360" height="130" rx="8" fill="#0d1117" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="450" y="422" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="bold" letter-spacing="2">⚡ TRIGGERS</text>
+  <line x1="280" y1="428" x2="620" y2="428" stroke="#f59e0b" stroke-width="0.5" opacity="0.4"/>
+
+  <text x="290" y="448" fill="#fbbf24" font-size="10" font-weight="bold">age_check_trigger</text>
+  <text x="290" y="463" fill="#94a3b8" font-size="9">→ При INSERT в users, проверява birthdate</text>
+  <text x="290" y="476" fill="#94a3b8" font-size="9">→ Ако е под 18 → is_underage = TRUE автоматично</text>
+
+  <text x="290" y="496" fill="#fbbf24" font-size="10" font-weight="bold">limit_spin_history trigger</text>
+  <text x="290" y="511" fill="#94a3b8" font-size="9">→ При INSERT в spin_history, пази само последните 10</text>
+  <text x="290" y="524" fill="#94a3b8" font-size="9">→ По-старите записи се изтриват автоматично</text>
+
+  <!-- Arrow from users to trigger -->
+  <path d="M 450 290 L 450 398" stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-dasharray="3,3" opacity="0.6"/>
+  <polygon points="445,396 450,404 455,396" fill="#f59e0b" opacity="0.6"/>
+
+  <!-- Legend -->
+  <rect x="30" y="430" width="200" height="90" rx="6" fill="#0d1117" stroke="#334155" stroke-width="1"/>
+  <text x="130" y="450" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold" letter-spacing="1">ЛЕГЕНДА</text>
+  
+  <line x1="45" y1="465" x2="75" y2="465" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+  <polygon points="72,461 78,465 72,469" fill="#3b82f6"/>
+  <text x="85" y="469" fill="#94a3b8" font-size="9">1 към N връзка</text>
+  
+  <line x1="45" y1="483" x2="75" y2="483" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,2"/>
+  <polygon points="72,479 78,483 72,487" fill="#ef4444"/>
+  <text x="85" y="487" fill="#94a3b8" font-size="9">1 към 1 връзка</text>
+
+  <rect x="45" y="494" width="14" height="10" rx="2" fill="#3b82f6" opacity="0.7"/>
+  <text x="65" y="503" fill="#94a3b8" font-size="9">FK = Foreign Key</text>
+  
+  <rect x="45" y="507" width="14" height="10" rx="2" fill="#10b981" opacity="0.7"/>
+  <text x="65" y="516" fill="#94a3b8" font-size="9">PK = Primary Key</text>
+
+  <!-- Legend right -->
+  <rect x="660" y="430" width="210" height="90" rx="6" fill="#0d1117" stroke="#334155" stroke-width="1"/>
+  <text x="765" y="450" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold" letter-spacing="1">ТАБЛИЦИ</text>
+  <rect x="670" y="458" width="10" height="10" rx="2" fill="#3b82f6"/>
+  <text x="688" y="468" fill="#94a3b8" font-size="9">users — потребители</text>
+  <rect x="670" y="474" width="10" height="10" rx="2" fill="#10b981"/>
+  <text x="688" y="484" fill="#94a3b8" font-size="9">spin_history — завъртания</text>
+  <rect x="670" y="490" width="10" height="10" rx="2" fill="#ef4444"/>
+  <text x="688" y="500" fill="#94a3b8" font-size="9">banned_users — забранени</text>
+  <text x="670" y="516" fill="#64748b" font-size="8">PostgreSQL + plpgsql triggers</text>
+</svg>
