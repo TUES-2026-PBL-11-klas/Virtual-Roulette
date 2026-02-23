@@ -8,6 +8,10 @@ function Home() {
   const [pile, setPile] = useState([]);
 
   const addToPile = (chip) => {
+    if (pile.length >= 67) {
+    alert("Too many chips in the pile! Please clear it before adding more.");
+    return;
+  }
     setPile((prev) => [...prev, { id: `${chip.id}-${Date.now()}-${prev.length}`, value: chip.value, color: chip.color }]);
   };
 
