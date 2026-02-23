@@ -14,8 +14,7 @@ function Comments() {
     commentIndex++;
 
     return (
-        <div className="comment">
-            <h2>Comments</h2>
+        <div className="comments-popup comments-popup--attention">
             <p>{currentComment}</p>
         </div>
     );

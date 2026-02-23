@@ -3,9 +3,12 @@ import Roulette from "../components/Roulette";
 import "../styles/Home.css";
 import chips from "../components/chips.jsx";
 import Stats from "../components/stats.jsx";
+import Comments from "../components/Comments";
+import Information from "../components/Information.jsx";
 
 function Home() {
   const [pile, setPile] = useState([]);
+  const [showComments, setShowComments] = useState(false);
 
   const addToPile = (chip) => {
     if (pile.length >= 67) {
@@ -15,10 +18,19 @@ function Home() {
     setPile((prev) => [...prev, { id: `${chip.id}-${Date.now()}-${prev.length}`, value: chip.value, color: chip.color }]);
   };
 
+  const handleAddChipsClick = () => {
+    setShowComments((prev) => !prev);
+  };
+
   const totalPile = pile.reduce((sum, c) => sum + c.value, 0);
 
   return (
     <div className="home-wrapper">
+      <button className="add-chips-button" onClick={handleAddChipsClick}>
+        <span className="add-chips-plus">+</span>
+        <span className="add-chips-text">Add Chips</span>
+      </button>
+
       <header className="home-header">
         <h1>Virtual Roulette</h1>
         <p>Place your bets</p>
@@ -59,7 +71,9 @@ function Home() {
           <button className="clear-btn" onClick={() => setPile([])}>Clear</button>
         </div>
         <Stats spins={10} />
+        <Information />
       </main>
+      {showComments && <Comments />}
     </div>
   );
 }

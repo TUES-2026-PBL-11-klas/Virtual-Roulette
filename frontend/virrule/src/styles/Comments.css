@@ -1,0 +1,115 @@
+/* Small golden "Add Chips" button fixed in the top-right */
+.add-chips-button {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+
+    background: whitesmoke;
+    color: #1a1a1a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.add-chips-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+    filter: brightness(1.05);
+}
+
+.add-chips-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    filter: brightness(0.97);
+}
+
+.add-chips-plus {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.add-chips-text {
+    text-transform: uppercase;
+}
+
+/* Comments pop-up panel near the button */
+.comments-popup {
+    position: fixed;
+    top: 60px;
+    right: 16px;
+    z-index: 999;
+
+    width: 240px;
+    max-width: 70vw;
+
+    background: linear-gradient(145deg, #d4af37 0%, var(--gold) 30%, #a07830 100%);
+    color: #181701;
+    border-radius: 10px;
+    padding: 12px 14px;
+
+    border: 1px solid rgba(255, 215, 0, 0.55);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(6px);
+}
+
+.comments-popup h2 {
+    margin: 0 0 6px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #000000;
+}
+
+.comments-popup p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #000000;
+}
+
+/* Extra attention-grabbing animation */
+.comments-popup--attention {
+    animation:
+        comments-pop-in 0.22s ease-out,
+        comments-pulse 1.4s ease-in-out 0.22s infinite;
+}
+
+@keyframes comments-pop-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes comments-pulse {
+    0% {
+        box-shadow: 0 0 0 rgba(255, 215, 0, 0.0);
+        border-color: rgba(255, 215, 0, 0.55);
+    }
+    50% {
+        box-shadow: 0 0 18px rgba(255, 215, 0, 0.8);
+        border-color: rgba(255, 255, 255, 0.9);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(255, 215, 0, 0.0);
+        border-color: rgba(255, 215, 0, 0.55);
+    }
+}
+
