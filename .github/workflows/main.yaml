@@ -37,11 +37,11 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: alex270817/virtual-roulette-backend:latest
+          tags: alex270817/virtual-roulette-backend:v1
 
       - name: Build and Push Frontend Docker Image
         uses: docker/build-push-action@v5
         with:
           context: ./frontend/virrule
           push: true
-          tags: alex270817/virtual-roulette-frontend:latest
+          tags: alex270817/virtual-roulette-frontend:v1
