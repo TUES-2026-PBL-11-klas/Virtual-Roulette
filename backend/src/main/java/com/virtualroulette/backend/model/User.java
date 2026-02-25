@@ -6,11 +6,14 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id; //randomly generated id
+
+    @Column(unique = true)
     @NotBlank
     private String username; //The users username and password
     @NotBlank

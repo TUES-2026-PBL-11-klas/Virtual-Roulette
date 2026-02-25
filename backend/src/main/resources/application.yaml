@@ -4,9 +4,9 @@ spring:
   
   datasource:
     #Same as docker-compose.yaml
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://db:5432/roulette_db}
-    username: ${SPRING_DATASOURCE_USERNAME:pesho}
-    password: ${SPRING_DATASOURCE_PASSWORD:123}
+    url:  jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 1234
     driver-class-name: org.postgresql.Driver
     hikari:
       initialization-fail-timeout: 60000
@@ -14,4 +14,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update #Automatic creattion of tables
+      ddl-auto: validate
+    show-sql: true
+    open-in-view: false
+
+

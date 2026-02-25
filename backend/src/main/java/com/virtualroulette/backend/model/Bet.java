@@ -3,6 +3,7 @@ package com.virtualroulette.backend.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "bet")
 public class Bet {
 
     @Id
@@ -10,6 +11,7 @@ public class Bet {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private  BetType type;
 
     private int number; //used for straight split etc. bets
@@ -17,6 +19,7 @@ public class Bet {
     private double amount;//Amount of the bet
 
     @ManyToOne
+    @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
     public Bet() {}
