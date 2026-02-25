@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    if (!email || !password) {
+    if (!username || !password) {
       setError("Please fill in all fields.");
       return;
     }
@@ -22,13 +22,13 @@ function Login() {
       const res = await fetch("/api/users/login?", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.message || "Invalid email or password.");
+        setError(data.message || "Invalid username or password.");
         return;
       }
 
@@ -60,12 +60,12 @@ function Login() {
         <p className={`error-message ${error ? "visible" : ""}`}>{error}</p>
 
         <div className="input-group">
-          <label>Email</label>
+          <label>User Name</label>
           <input
-            type="email"
-            placeholder="you@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="username"
+            placeholder="your name"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={loading}
           />

@@ -3,6 +3,7 @@ package com.virtualroulette.backend.service;
 import com.virtualroulette.backend.model.Bet;
 import com.virtualroulette.backend.model.BetType;
 import com.virtualroulette.backend.model.User;
+import com.virtualroulette.backend.repository.BetRepository;
 import com.virtualroulette.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +15,13 @@ public class GameService {
 
     private final Random random = new Random();
     private final UserRepository userRepository;
+    private final BetRepository betRepository;
 
-    public GameService(UserRepository userRepository){
+
+
+    public GameService(UserRepository userRepository,BetRepository betRepository){
         this.userRepository = userRepository;
+        this.betRepository = betRepository;
     }
 
     public int spinWheel(){
@@ -71,6 +76,9 @@ public class GameService {
         double newBalance = user.getBalance() - amount + payout;
         user.setBalance(Math.round(newBalance*100.0) / 100.0);
         userRepository.save(user);
+        Bet bet = new Bet(betType,number,amount,user);
+        betRepository.save(bet);
+
         return result;
     }
 
