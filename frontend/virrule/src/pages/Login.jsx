@@ -6,18 +6,44 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       setError("Please fill in all fields.");
       return;
     }
-    if (email === "test@test.com" && password === "1234") {
+
+    setError("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/users/login?", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Invalid email or password.");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+
       navigate("/");
-    } else {
-      setError("Invalid email or password.");
+    } catch (err) {
+      setError("Could not reach the server. Try again.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleLogin();
   };
 
   return (
@@ -35,14 +61,30 @@ function Login() {
 
         <div className="input-group">
           <label>Email</label>
-          <input type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={loading}
+          />
         </div>
         <div className="input-group">
           <label>Password</label>
-          <input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyDown}
+            disabled={loading}
+          />
         </div>
 
-        <button className="login-btn" onClick={handleLogin}>Enter the Table</button>
+        <button className="login-btn" onClick={handleLogin} disabled={loading}>
+          {loading ? "Joining..." : "Enter the Table"}
+        </button>
 
         <p className="login-footer">No account? <span>Register</span></p>
       </div>
