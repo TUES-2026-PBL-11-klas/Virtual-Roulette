@@ -21,5 +21,3 @@ buildNumber.properties
 /build
 /target
 *.log
-
-backend/src/main/resources/application.yaml
