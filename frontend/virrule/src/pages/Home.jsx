@@ -5,6 +5,7 @@ import chips from "../components/chips.jsx";
 import Stats from "../components/stats.jsx";
 import Comments from "../components/Comments";
 import Information from "../components/Information.jsx";
+import BettingTable from "../components/bettingTable.jsx";
 
 function Home() {
   const [pile, setPile] = useState([]);
@@ -71,6 +72,7 @@ function Home() {
           <button className="clear-btn" onClick={() => setPile([])}>Clear</button>
         </div>
         <Stats spins={10} />
+        <BettingTable onBet={(bet) => console.log(bet)} />
         <Information />
       </main>
       {showComments && <Comments />}
