@@ -1,0 +1,24 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: roulette-db
+  namespace: roulette
+spec:
+  instances: 1
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:16
+
+  storage:
+    size: 5Gi
+
+  bootstrap:
+    initdb:
+      database: roulette
+      owner: pesho
+      secret:
+        name: app-db-credentials
+
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
