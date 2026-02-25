@@ -3,6 +3,7 @@ package com.virtualroulette.backend.service;
 import com.virtualroulette.backend.model.Bet;
 import com.virtualroulette.backend.model.BetType;
 import com.virtualroulette.backend.model.User;
+import com.virtualroulette.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -12,7 +13,11 @@ import java.util.Random;
 public class GameService {
 
     private final Random random = new Random();
+    private final UserRepository userRepository;
 
+    public GameService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
     public int spinWheel(){
         return random.nextInt(37);
@@ -26,31 +31,46 @@ public class GameService {
         return false;
     }
 
-    public double calculatePayout(Bet bet, int result){
+    public double calculatePayout(BetType type, int number, double amount, int result){
         double payout = 0.0;
-
-        switch(bet.getType()){
+        switch(type){
             case STRAIGHT:
-                if(bet.getNumber() == result) payout = bet.getAmount() * 35;
+                if(number == result) payout = amount * 35;
                 break;
             case RED:
-                if(isRed(result)) payout = bet.getAmount();
+                if(isRed(result)) payout = amount;
                 break;
             case BLACK:
-                if(!isRed(result) && result != 0) payout = bet.getAmount();
+                if(!isRed(result) && result != 0) payout = amount;
                 break;
             case EVEN:
-                if(result != 0 && result % 2 ==0) payout = bet.getAmount();
+                if(result != 0 && result % 2 == 0) payout = amount;
+                break;
+            case ODD:
+                if(result != 0 && result % 2 != 0) payout = amount;
+                break;
+            case LOW:
+                if(result >= 1 && result <= 18) payout = amount;
+                break;
+            case HIGH:
+                if(result >= 19 && result <= 36) payout = amount;
                 break;
         }
         return payout;
     }
 
-    public double playBet(User user, Bet bet){
+    public double playBet(Long userId,BetType betType,double amount,int number){
+        User user = userRepository.findById(userId)
+                .orElseThrow(()-> new RuntimeException("User not found!"));
+        if(user.getBalance() < amount){
+            throw new RuntimeException("Insufficient funds!");
+        }
+
         int result = spinWheel();
-        double payout = calculatePayout(bet,result);
-        double newBalance = user.getBalance() - bet.getAmount() + payout;
-        user.setBalance(Math.round(newBalance * 100.0)/100.0);
+        double payout = calculatePayout(betType,number,amount,result);
+        double newBalance = user.getBalance() - amount + payout;
+        user.setBalance(Math.round(newBalance*100.0) / 100.0);
+        userRepository.save(user);
         return result;
     }
 

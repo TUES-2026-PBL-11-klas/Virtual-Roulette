@@ -35,6 +35,6 @@ public class UserService {
 
     public User getUser(Long id){
         //getter for finding a user through the user id and it throws an exception if the user isnt found
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User Not Found!"));
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
     }
 }
