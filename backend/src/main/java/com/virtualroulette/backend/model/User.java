@@ -29,6 +29,12 @@ public class User {
     @PositiveOrZero
     private double balance; //The users balance
 
+
+    @Getter
+    @Setter
+    @PositiveOrZero
+    private int consecutiveLosses;
+
     public User(){} //basic constructor for jpa because it reads the data first then it adds it to the instance
 
     public User(String username,String password,double balance){ //constrcutor with parameters
