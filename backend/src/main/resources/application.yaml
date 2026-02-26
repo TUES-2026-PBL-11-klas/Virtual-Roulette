@@ -2,9 +2,9 @@ spring:
   application:
     name: backend
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres                     #${DB_URL}
-    username: postgres                #${DB_USERNAME}
-    password: 1234                #${DB_PASSWORD}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       initialization-fail-timeout: 60000
@@ -12,7 +12,6 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
-    open-in-view: false
-
+      ddl-auto: update #Automatic updates db schema not useful for production!
+    show-sql: true #Prints sql queries in the console
+    open-in-view: false # Service layer must prepare the data before returning it. No lazy loading in controllers.
