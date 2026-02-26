@@ -1,6 +1,7 @@
 package com.virtualroulette.backend.controller;
 
 
+import com.virtualroulette.backend.dto.LoginRequest;
 import com.virtualroulette.backend.model.User;
 import com.virtualroulette.backend.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,9 @@ public class UserController {
     public UserController(UserService userService){this.userService = userService;}
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestParam String username,@RequestParam String password){
+    public ResponseEntity<?> register(@RequestBody LoginRequest request){
         try{
-            User user = userService.register(username,password);
+            User user = userService.register(request.getUsername(),request.getPassword());
             return ResponseEntity.ok(user);
         }
         catch(RuntimeException e){
@@ -28,9 +29,9 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String username,@RequestParam String password){
+    public ResponseEntity<?> login(@RequestBody LoginRequest request){
         try{
-            User user = userService.login(username,password);
+            User user = userService.login(request.getUsername(),request.getPassword());
             return ResponseEntity.ok(user);
         }
         catch(RuntimeException e){
