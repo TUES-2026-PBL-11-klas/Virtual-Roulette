@@ -32,7 +32,7 @@ function Comments() {
         "Plan A lesni pari, Plan B credit, Plan C podlez NDK",
         "Brat stiga upgradeva zagubite",
         "Kusmetut pak e v pochivka",
-        "Otricatel IQ test",
+        "Otricatelen IQ test",
         "Kazinoto te poznava po dobre ot gadjeto ue",
         "Speedrun na bednost",
         "Ti li si specialniq be",
