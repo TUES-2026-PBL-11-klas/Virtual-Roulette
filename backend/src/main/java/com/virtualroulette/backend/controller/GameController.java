@@ -1,27 +1,22 @@
 package com.virtualroulette.backend.controller;
 
 import com.virtualroulette.backend.model.BetType;
-import com.virtualroulette.backend.repository.BetRepository;
-import jakarta.persistence.Entity;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.virtualroulette.backend.service.GameService;
-import com.virtualroulette.backend.model.Bet;
-import com.virtualroulette.backend.model.User;
-import org.springframework.web.servlet.function.EntityResponse;
 
+//Game Controller handles all the http requests for the game itself returning the wanted information
+//An entry point for the api
 
 @RestController
 @RequestMapping("/api/game")
 public class GameController {
 
     private final GameService gameService;
-    private final BetRepository betRepository;
 
-    public GameController(GameService gameService, BetRepository betRepository){
+    public GameController(GameService gameService){
         this.gameService = gameService;
-        this.betRepository = betRepository;
     }
 
     @PostMapping("/play")
