@@ -1,8 +1,10 @@
 package com.virtualroulette.backend.serviceTests;
 
+import com.virtualroulette.backend.model.Bet;
 import com.virtualroulette.backend.model.BetType;
 import com.virtualroulette.backend.model.User;
 import com.virtualroulette.backend.repository.UserRepository;
+import com.virtualroulette.backend.repository.BetRepository;
 import com.virtualroulette.backend.service.GameService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,8 @@ class GameServiceTest {
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private BetRepository betRepository;
 
     @InjectMocks
     private GameService gameService;
@@ -116,6 +120,7 @@ class GameServiceTest {
         User user = new User("john", "hashed", 1000);
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArgument(0));
+        when(betRepository.save(any(Bet.class))).thenAnswer(i -> i.getArgument(0));
 
         gameService.playBet(1L, BetType.STRAIGHT, 100, 7);
 

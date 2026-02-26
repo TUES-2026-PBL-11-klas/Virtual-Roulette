@@ -1,7 +1,9 @@
 package com.virtualroulette.backend.controller;
 
 import com.virtualroulette.backend.model.BetType;
+import com.virtualroulette.backend.repository.BetRepository;
 import jakarta.persistence.Entity;
+import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.virtualroulette.backend.service.GameService;
@@ -15,9 +17,11 @@ import org.springframework.web.servlet.function.EntityResponse;
 public class GameController {
 
     private final GameService gameService;
+    private final BetRepository betRepository;
 
-    public GameController(GameService gameService){
+    public GameController(GameService gameService, BetRepository betRepository){
         this.gameService = gameService;
+        this.betRepository = betRepository;
     }
 
     @PostMapping("/play")
@@ -27,8 +31,8 @@ public class GameController {
             @RequestParam double amount,
             @RequestParam int number){
         try{
-            double result = gameService.playBet(userId,betType,amount,number);
-            return ResponseEntity.ok("Wheel: "+ result);
+            Map<String,Object> result = gameService.playBet(userId,betType,amount,number);
+            return ResponseEntity.ok(result);
         }
         catch(RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());

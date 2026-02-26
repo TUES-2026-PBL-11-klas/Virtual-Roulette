@@ -7,6 +7,8 @@ import com.virtualroulette.backend.repository.BetRepository;
 import com.virtualroulette.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -64,7 +66,7 @@ public class GameService {
         return payout;
     }
 
-    public double playBet(Long userId,BetType betType,double amount,int number){
+    public Map<String,Object> playBet(Long userId,BetType betType,double amount,int number){
         User user = userRepository.findById(userId)
                 .orElseThrow(()-> new RuntimeException("User not found!"));
         if(user.getBalance() < amount){
@@ -79,7 +81,17 @@ public class GameService {
         Bet bet = new Bet(betType,number,amount,user);
         betRepository.save(bet);
 
-        return result;
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("wheelResult",result);
+        response.put("payout",payout);
+        response.put("newBalance",newBalance);
+        response.put("wonOrLost",(payout > 0));
+        response.put("betType",betType);
+        response.put("amount",amount);
+
+        return response;
     }
+
 
 }
