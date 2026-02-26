@@ -1,23 +1,30 @@
 package com.virtualroulette.backend.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Table(name = "bet")
 public class Bet {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private  BetType type;
 
+    @Getter
     private int number; //used for straight split etc. bets
 
+    @Getter
     private double amount;//Amount of the bet
 
+
+    @Getter
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
@@ -30,11 +37,5 @@ public class Bet {
         this.amount = amount;
         this.user = user;
     }
-
-    public Long getId(){return id;}
-    public BetType getType(){return type;}
-    public int getNumber(){return number;}
-    public double getAmount(){return amount;}
-    public User getUser(){return user;}
 
 }

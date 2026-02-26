@@ -3,21 +3,29 @@ package com.virtualroulette.backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
 @Table(name = "users")
 public class User {
-
+    @Getter
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id; //randomly generated id
 
+    @Getter
     @Column(unique = true)
     @NotBlank
     private String username; //The users username and password
+
+    @Getter
     @NotBlank
     private String password;
+
+    @Getter
+    @Setter
     @PositiveOrZero
     private double balance; //The users balance
 
@@ -28,11 +36,5 @@ public class User {
         this.password = password;
         this.balance = balance;
     }
-
-    public Long getId() {return id;}
-    public String getUsername(){return username;}
-    public String getPassword(){return password;}
-    public double getBalance(){return balance;}
-    public void setBalance(double balance){this.balance = balance;}
 
 }
