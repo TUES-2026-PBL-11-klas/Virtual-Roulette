@@ -20,6 +20,7 @@ function Home() {
   const [totalLoss, setTotalLoss] = useState(0);
   const [totalWager, setTotalWager] = useState(0);
   const [balance, setBalance] = useState(null);
+  const [betError, setBetError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +45,11 @@ function Home() {
     const chipToUse = chip || selectedChip;
     if (!chipToUse || !spot) return;
 
+    if((balance ?? 0) < chipToUse.value){
+      setBetError("Insufficient funds! You cant place this chip.");
+      return;
+    }
+    setBetError("");
     setBets((prev) => [
       ...prev,
       {
@@ -80,10 +86,17 @@ function Home() {
 
   const handleBetConfirm = async () => {
     if (!bets.length) {
-      alert("Place at least one bet on the table first.");
+      setBetError("Place at least one chip to make a bet.");
       return;
     }
 
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (totalStake > (balance ?? user.balance)) {
+      setBetError("Insufficient funds! Your balance is too low for this bet.");
+      return;
+    }
+
+    setBetError("");
     setIsSpinModalOpen(true);
     setIsSpinning(true);
     setSpinResult(null);
@@ -250,6 +263,12 @@ function Home() {
               selectedChip={selectedChip}
               bets={bets}
           />
+
+          {betError && (
+              <div className="bet-error">
+                {betError}
+              </div>
+          )}
 
           <div className="bet-actions">
             <button className="bet-btn" onClick={handleBetConfirm} disabled={isSpinning}>
