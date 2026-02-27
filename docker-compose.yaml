@@ -1,18 +1,18 @@
 services:
-  # Data base
+  # Database
   db:
     image: postgres:17-alpine
     container_name: postgres_db
     environment:
       POSTGRES_USER: pesho
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: roulette_db
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: roulette
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # 2. Java Spring
+  # Java Spring
   backend:
     build: ./backend
     container_name: java_backend
@@ -21,11 +21,11 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/roulette_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/roulette
       SPRING_DATASOURCE_USERNAME: pesho
-      SPRING_DATASOURCE_PASSWORD: 123
+      SPRING_DATASOURCE_PASSWORD: "1234"
 
-  # 3. React Frontend
+  # React Frontend
   frontend:
     build: ./frontend/virrule
     container_name: react_frontend
