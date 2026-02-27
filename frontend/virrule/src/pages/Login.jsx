@@ -40,7 +40,8 @@ function Login() {
         return;
       }
 
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", user.token);
+      localStorage.setItem("user",JSON.stringify(user.user));
       navigate("/");
     } catch (err) {
       setError("Could not reach the server. Try again.");

@@ -93,6 +93,10 @@ function Home() {
       const token = localStorage.getItem("token");
       const user = JSON.parse(localStorage.getItem("user"));
 
+      let wheelNumber = null;
+      let wheelColor = null;
+      const redNumbers = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
+
       for (const bet of bets) {
         const res = await fetch("/api/game/play", {
           method: "POST",
@@ -120,53 +124,31 @@ function Home() {
         if (data.newBalance !== undefined) {
           setBalance(data.newBalance);
         }
+        if (data.wheelResult !== undefined) {
+          wheelNumber = data.wheelResult;
+          wheelColor = wheelNumber === 0 ? "GREEN" : redNumbers.includes(wheelNumber) ? "RED" : "BLACK";
+        }
       }
 
-      const response = await fetch("/api/game/spin", {
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-      if (!response.ok) {
-        throw new Error("Failed to spin wheel");
+      if (wheelNumber === null) {
+        wheelNumber = Math.floor(Math.random() * 37);
+        wheelColor = wheelNumber === 0 ? "GREEN" : redNumbers.includes(wheelNumber) ? "RED" : "BLACK";
       }
-      const data = await response.json();
-      const number =
-          typeof data.number === "number"
-              ? data.number
-              : Math.floor(Math.random() * 37);
-      const redNumbers = [
-        1, 3, 5, 7, 9, 12, 14, 16, 18,
-        19, 21, 23, 25, 27, 30, 32, 34, 36,
-      ];
-      const color =
-          typeof data.color === "string" && data.color
-              ? data.color
-              : number === 0
-                  ? "GREEN"
-                  : redNumbers.includes(number)
-                      ? "RED"
-                      : "BLACK";
 
       await new Promise((resolve) => setTimeout(resolve, 3000));
 
-      setSpinResult(number);
-      setSpinColor(color);
-      const lossThisSpin = computeLossForResult(number);
+      setSpinResult(wheelNumber);
+      setSpinColor(wheelColor);
+      const lossThisSpin = computeLossForResult(wheelNumber);
       setTotalLoss((prev) => prev + lossThisSpin);
       setTotalSpins((prev) => prev + 1);
       setTotalWager((prev) => prev + totalStake);
+
     } catch (err) {
       console.error(err);
+      const redNumbers = [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36];
       const fallbackNumber = Math.floor(Math.random() * 37);
-      const redNumbers = [
-        1, 3, 5, 7, 9, 12, 14, 16, 18,
-        19, 21, 23, 25, 27, 30, 32, 34, 36,
-      ];
-      const fallbackColor =
-          fallbackNumber === 0
-              ? "GREEN"
-              : redNumbers.includes(fallbackNumber)
-                  ? "RED"
-                  : "BLACK";
+      const fallbackColor = fallbackNumber === 0 ? "GREEN" : redNumbers.includes(fallbackNumber) ? "RED" : "BLACK";
 
       await new Promise((resolve) => setTimeout(resolve, 3000));
 
@@ -180,7 +162,6 @@ function Home() {
       setIsSpinning(false);
     }
   };
-
   const closeSpinModal = () => {
     setIsSpinModalOpen(false);
   };
