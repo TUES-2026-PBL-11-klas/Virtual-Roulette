@@ -1,7 +1,9 @@
 package com.virtualroulette.backend.serviceTests;
 
 import com.virtualroulette.backend.model.User;
+import com.virtualroulette.backend.repository.BetRepository;
 import com.virtualroulette.backend.repository.UserRepository;
+import com.virtualroulette.backend.service.JwtFilter;
 import com.virtualroulette.backend.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,8 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.virtualroulette.backend.service.JwtUtil;
 
 import java.util.Optional;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -21,7 +25,14 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     @Mock
+    private BetRepository betRepository;
+
+
+    @Mock
     private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private JwtUtil jwtUtil;
 
     @InjectMocks
     private UserService userService;
@@ -36,12 +47,13 @@ class UserServiceTest {
         when(userRepository.findByUsername("john")).thenReturn(Optional.empty());
         when(passwordEncoder.encode("1234")).thenReturn("hashed1234");
         when(userRepository.save(any(User.class))).thenAnswer(i -> i.getArgument(0));
+        when(jwtUtil.generateToken("john")).thenReturn("mocktoken");
 
-        User result = userService.register("john", "1234");
-
-        assertEquals("john", result.getUsername());
-        assertEquals("hashed1234", result.getPassword());
-        assertEquals(10000, result.getBalance());
+        Map<String,Object> result = userService.register("john","1234");
+        User user = (User) result.get("user");
+        assertEquals("john", user.getUsername());
+        assertEquals("hashed1234", user.getPassword());
+        assertEquals(10000, user.getBalance());
         verify(userRepository, times(1)).save(any(User.class));
     }
 
@@ -61,10 +73,13 @@ class UserServiceTest {
         User user = new User("username", "hashed1234", 10000);
         when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
         when(passwordEncoder.matches("1234", "hashed1234")).thenReturn(true);
+        when(jwtUtil.generateToken("username")).thenReturn("mocktoken");
 
-        User result = userService.login("username", "1234");
+        Map<String,Object> result = userService.login("username","1234");
 
-        assertEquals("username", result.getUsername());
+        User returned = (User) result.get("user");
+
+        assertEquals("username", returned.getUsername());
     }
 
     @Test

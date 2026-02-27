@@ -16,5 +16,5 @@ spring:
     show-sql: true #Prints sql queries in the console.
     open-in-view: false # Service layer must prepare the data before returning it. No lazy loading in controllers.
 
-  jwt:
-    secret:  #${JWT_SECRET}
+jwt:
+  secret: ${JWT_SECRET}

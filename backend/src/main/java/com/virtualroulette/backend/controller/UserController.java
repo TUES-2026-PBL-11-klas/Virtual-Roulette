@@ -18,11 +18,9 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody LoginRequest request){
-        try{
-            User user = userService.register(request.getUsername(),request.getPassword());
-            return ResponseEntity.ok(user);
-        }
-        catch(RuntimeException e){
+        try {
+            return ResponseEntity.ok(userService.register(request.getUsername(), request.getPassword()));
+        } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -31,8 +29,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request){
         try{
-            User user = userService.login(request.getUsername(),request.getPassword());
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(userService.login(request.getUsername(),request.getPassword()));
         }
         catch(RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
