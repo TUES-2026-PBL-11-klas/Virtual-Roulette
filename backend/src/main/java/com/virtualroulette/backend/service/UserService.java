@@ -1,19 +1,25 @@
 package com.virtualroulette.backend.service;
 
+import com.virtualroulette.backend.model.Bet;
 import com.virtualroulette.backend.model.User;
+import com.virtualroulette.backend.repository.BetRepository;
 import com.virtualroulette.backend.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final BetRepository betRepository;
 
-    public UserService(UserRepository userRepository,PasswordEncoder passwordEncoder){ //constructor for the user repository
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, BetRepository betRepository){ //constructor for the user repository
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.betRepository = betRepository;
     }
 
     public User register(String username,String password){
@@ -36,5 +42,9 @@ public class UserService {
     public User getUser(Long id){
         //getter for finding a user through the user id and it throws an exception if the user isnt found
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+    }
+
+    public List<Bet> getUserHistory(Long userId){
+        return betRepository.findBetByUserId(userId);
     }
 }
