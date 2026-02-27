@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Roulette from "../components/Roulette";
 import "../styles/Home.css";
 import chips from "../components/chips.jsx";
-import Stats from "../components/stats.jsx";
 import Comments from "../components/Comments";
 import Information from "../components/Information.jsx";
 import BettingTable from "../components/bettingTable.jsx";
@@ -18,6 +18,14 @@ function Home() {
   const [totalSpins, setTotalSpins] = useState(0);
   const [totalLoss, setTotalLoss] = useState(0);
   const [totalWager, setTotalWager] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const stored = localStorage.getItem("user");
+    if (!stored) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const handleAddChipsClick = () => {
     setShowComments((prev) => !prev);
@@ -82,14 +90,49 @@ function Home() {
         throw new Error("Failed to spin wheel");
       }
       const data = await response.json();
-      setSpinResult(data.number);
-      setSpinColor(data.color);
-      const lossThisSpin = computeLossForResult(data.number);
+      const number =
+        typeof data.number === "number"
+          ? data.number
+          : Math.floor(Math.random() * 37);
+      const redNumbers = [
+        1, 3, 5, 7, 9, 12, 14, 16, 18,
+        19, 21, 23, 25, 27, 30, 32, 34, 36,
+      ];
+      const color =
+        typeof data.color === "string" && data.color
+          ? data.color
+          : number === 0
+          ? "GREEN"
+          : redNumbers.includes(number)
+          ? "RED"
+          : "BLACK";
+
+      setSpinResult(number);
+      setSpinColor(color);
+      const lossThisSpin = computeLossForResult(number);
       setTotalLoss((prev) => prev + lossThisSpin);
       setTotalSpins((prev) => prev + 1);
       setTotalWager((prev) => prev + totalStake);
     } catch (err) {
       console.error(err);
+      const fallbackNumber = Math.floor(Math.random() * 37);
+      const redNumbers = [
+        1, 3, 5, 7, 9, 12, 14, 16, 18,
+        19, 21, 23, 25, 27, 30, 32, 34, 36,
+      ];
+      const fallbackColor =
+        fallbackNumber === 0
+          ? "GREEN"
+          : redNumbers.includes(fallbackNumber)
+          ? "RED"
+          : "BLACK";
+
+      setSpinResult(fallbackNumber);
+      setSpinColor(fallbackColor);
+      const lossThisSpin = computeLossForResult(fallbackNumber);
+      setTotalLoss((prev) => prev + lossThisSpin);
+      setTotalSpins((prev) => prev + 1);
+      setTotalWager((prev) => prev + totalStake);
     } finally {
       setIsSpinning(false);
     }
@@ -227,8 +270,6 @@ function Home() {
             </span>
           </div>
         </div>
-
-        <Stats spins={10} />
         <Information />
       </main>
 
