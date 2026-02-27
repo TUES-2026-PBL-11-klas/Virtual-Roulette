@@ -127,7 +127,7 @@ function Home() {
 
         if (!res.ok) {
           const error = await res.text();
-          alert(error);
+          setBetError(error);
           setIsSpinning(false);
           setIsSpinModalOpen(false);
           return;
@@ -181,7 +181,7 @@ function Home() {
 
   const handleSimulateSpins = (count) => {
     if (!bets.length) {
-      alert("Place at least one bet on the table first.");
+      setBetError("Place at least one chip.");
       return;
     }
 
