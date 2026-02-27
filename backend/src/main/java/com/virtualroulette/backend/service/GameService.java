@@ -87,39 +87,6 @@ public class GameService {
         Bet bet = new Bet(betType,number,amount,user);
         betRepository.save(bet);
 
-        String lossWarning = null;
-        //Losses warning
-        if(user.getConsecutiveLosses() == 3){
-            lossWarning = "Maybe third time's not a charm. How about you take a break?";
-        }
-        else if(user.getConsecutiveLosses() > 3 && user.getConsecutiveLosses() <= 10){
-            lossWarning = "You've already lost " + user.getConsecutiveLosses() +" times. Are you sure what you know what you're doing?";
-        }
-        else if(user.getConsecutiveLosses() > 10){
-            lossWarning = user.getConsecutiveLosses() + " losses...";
-        }
-
-        //balance warning
-        String balanceWarning = null;
-        if(user.getBalance() <= 5000 && user.getBalance() > 2500){
-            balanceWarning = "You've dropped down to 5000! Maybe you should slow down.";
-        }
-        else if(user.getBalance() <= 2500 && user.getBalance() > 1000) {
-            balanceWarning = "You're down to 2500. The noose is tightening...";
-        }
-        else if(user.getBalance() <= 1000 && user.getBalance() > 100){
-            balanceWarning = "Your balance is " + user.getBalance() + ". Are you sure this is worth it?";
-        }
-        else if(user.getBalance() <= 100 && user.getBalance() > 0){
-            balanceWarning = "You only have " + user.getBalance() + " in your balance. This might be your last move... but you can still choose to stop.";
-        }
-        else if(user.getBalance() == 0){
-            balanceWarning = "Balance: 0. We gave you the warnings. You ignored them. Think about what that money could have been. The choice is yours now — repeat the cycle, or end it.";
-        }
-
-
-
-
 
         Map<String,Object> response = new HashMap<>();
         response.put("wheelResult",result);
@@ -128,6 +95,7 @@ public class GameService {
         response.put("wonOrLost",(payout > 0));
         response.put("betType",betType);
         response.put("amount",amount);
+        response.put("consecutiveLosses",user.getConsecutiveLosses());
 
         return response;
     }

@@ -11,7 +11,8 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,             
     balance  DOUBLE PRECISION NOT NULL          
                 DEFAULT 10000                   
-                CHECK (balance >= 0)
+                CHECK (balance >= 0),
+    consecutive_losses INTEGER NOT NULL DEFAULT 0
 );
 
 --  @ManyToOne User -> user_id REFERENCES users(id)
