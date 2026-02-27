@@ -126,6 +126,11 @@ function Home() {
         });
 
         if (!res.ok) {
+          if (res.status === 403) {
+            localStorage.clear();
+            navigate("/login");
+            return;
+          }
           const error = await res.text();
           setBetError(error);
           setIsSpinning(false);
