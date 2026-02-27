@@ -107,6 +107,8 @@ function Home() {
           ? "RED"
           : "BLACK";
 
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
       setSpinResult(number);
       setSpinColor(color);
       const lossThisSpin = computeLossForResult(number);
@@ -126,6 +128,8 @@ function Home() {
           : redNumbers.includes(fallbackNumber)
           ? "RED"
           : "BLACK";
+
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       setSpinResult(fallbackNumber);
       setSpinColor(fallbackColor);
