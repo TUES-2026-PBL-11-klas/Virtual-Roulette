@@ -5,8 +5,15 @@ This is simple implementation of popular game - roulette. Its purpose is to show
 
 ## To start the app
 ```
+cd ...Virtual-Roulette\k8s
 kubectl apply --server-side -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.0.yaml
-kubectl apply -f ./k8s --recursive
+kubectl apply -f .
+kubectl apply -f ./frontend
+kubectl apply -f ./database
+kubectl apply -f ./backend
+
+kubectl port-forward svc/backend 3030:80 -n roulette
+kubectl port-forward svc/frontend 8080:80 -n roulette
 ```
 #### To start local dev
 docker compose up --build

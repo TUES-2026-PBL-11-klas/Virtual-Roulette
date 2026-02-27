@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: alex270817/roulette-frontend:v1
+          image: alex270817/virtual-roulette-frontend:v1
           ports:
             - containerPort: 80
           env:
