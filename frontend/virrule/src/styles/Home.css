@@ -90,12 +90,12 @@
   position: relative;
   background: var(--card-bg);
   border-radius: 6px;
-  padding: 32px 28px 24px;
+  padding: 40px 32px 28px;
   border: 1px solid rgba(201, 168, 76, 0.4);
   box-shadow:
     0 0 60px rgba(0, 0, 0, 0.7),
     0 0 0 1px rgba(201, 168, 76, 0.4) inset;
-  width: 380px;
+  width: 480px;
   max-width: 90vw;
 }
 
@@ -127,8 +127,8 @@
 }
 
 .roulette-wheel {
-  width: 200px;
-  height: 200px;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
   border: 3px solid rgba(201, 168, 76, 0.7);
   background: conic-gradient(
