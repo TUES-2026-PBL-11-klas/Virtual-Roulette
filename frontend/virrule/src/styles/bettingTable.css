@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=EB+Garamond:wght@400;500&display=swap');
+
+.betting-table-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.betting-table {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  border: 3px solid #c9a84c;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 6px #0e3b1f,
+    0 0 0 9px #c9a84c,
+    0 10px 40px rgba(0,0,0,0.6);
+  background: #0e3b1f;
+  font-family: 'EB Garamond', serif;
+}
+
+.bt-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  user-select: none;
+  position: relative;
+  color: #fff;
+}
+
+.bt-cell:hover {
+  filter: brightness(1.25);
+  transform: scale(1.04);
+  z-index: 3;
+  box-shadow: 0 0 12px rgba(201, 168, 76, 0.5);
+}
+
+.bt-cell--active {
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.9),
+    0 0 18px rgba(255, 255, 255, 0.7);
+  filter: brightness(1.3);
+}
+
+.bt-zero-col {
+  width: 64px;
+  background: #1a6b35;
+  font-size: 1.1rem;
+}
+
+.bt-zero-label {
+  letter-spacing: 0.12em;
+}
+
+.bt-number-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.bt-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.bt-row {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.number-cell {
+  height: 52px;
+  min-width: 44px;
+}
+
+.number-cell.red {
+  background: #9b1c1c;
+}
+
+.number-cell.black {
+  background: #1a1a1a;
+}
+
+.bt-dozens {
+  display: flex;
+  border-top: 2px solid #c9a84c;
+}
+
+.bt-dozens .outside-cell {
+  flex: 1;
+  height: 36px;
+  background: #0b5226;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bt-outside {
+  display: flex;
+  border-top: 1px solid rgba(201,168,76,0.4);
+}
+
+.bt-outside .outside-cell {
+  flex: 1;
+  height: 36px;
+  background: #0b5226;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.red-outside {
+  background: #7f1d1d !important;
+}
+
+.black-outside {
+  background: #111 !important;
+}
+
+.bt-col-bets {
+  display: flex;
+  flex-direction: column;
+  width: 44px;
+  border-left: 2px solid #c9a84c;
+}
+
+.col-bet-cell {
+  flex: 1;
+  background: #0b5226;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bt-chip-stack {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 10px;
+  padding: 1px 6px;
+  font-size: 0.65rem;
+}
+
+.bt-chip-count {
+  color: #f5ead7;
+}
+
+@media (max-width: 700px) {
+  .betting-table-wrapper {
+    padding: 8px;
+    overflow-x: auto;
+  }
+
+  .number-cell {
+    height: 40px;
+    min-width: 32px;
+    font-size: 0.72rem;
+  }
+
+  .bt-zero-col {
+    width: 48px;
+  }
+}
+

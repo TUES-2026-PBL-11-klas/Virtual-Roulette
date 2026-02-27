@@ -38,6 +38,13 @@ public class GameService {
         return false;
     }
 
+    public String getColorForNumber(int number){
+        if (number == 0) {
+            return "GREEN";
+        }
+        return isRed(number) ? "RED" : "BLACK";
+    }
+
     public double calculatePayout(BetType type, int number, double amount, int result){
         double payout = 0.0;
         switch(type){
@@ -77,6 +84,12 @@ public class GameService {
         double payout = calculatePayout(betType,number,amount,result);
         double newBalance = user.getBalance() - amount + payout;
         user.setBalance(Math.round(newBalance*100.0) / 100.0);
+        if(payout == 0){
+            user.setConsecutiveLosses(user.getConsecutiveLosses() + 1);
+        }
+        else{
+            user.setConsecutiveLosses(0);
+        }
         userRepository.save(user);
         Bet bet = new Bet(betType,number,amount,user);
         betRepository.save(bet);
@@ -89,6 +102,7 @@ public class GameService {
         response.put("wonOrLost",(payout > 0));
         response.put("betType",betType);
         response.put("amount",amount);
+        response.put("consecutiveLosses",user.getConsecutiveLosses());
 
         return response;
     }

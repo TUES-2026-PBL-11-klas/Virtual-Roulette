@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 
-function Login() {
+function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     if (!username || !password) {
       setError("Please fill in all fields.");
       return;
@@ -19,7 +19,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/users/login", {
+      const res = await fetch("/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -28,7 +28,7 @@ function Login() {
       const text = await res.text();
 
       if (!res.ok) {
-        setError(text || "Invalid username or password.");
+        setError(text || "Could not register with these details.");
         return;
       }
 
@@ -50,7 +50,7 @@ function Login() {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleLogin();
+    if (e.key === "Enter") handleRegister();
   };
 
   return (
@@ -62,14 +62,14 @@ function Login() {
           <p>Virtual Roulette</p>
         </div>
 
-        <div className="divider"><span>sign in</span></div>
+        <div className="divider"><span>register</span></div>
 
         <p className={`error-message ${error ? "visible" : ""}`}>{error}</p>
 
         <div className="input-group">
           <label>User Name</label>
           <input
-            type="username"
+            type="text"
             placeholder="your name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -89,14 +89,14 @@ function Login() {
           />
         </div>
 
-        <button className="login-btn" onClick={handleLogin} disabled={loading}>
-          {loading ? "Joining..." : "Enter the Table"}
+        <button className="login-btn" onClick={handleRegister} disabled={loading}>
+          {loading ? "Creating..." : "Create Account"}
         </button>
 
         <p className="login-footer">
-          No account?{" "}
-          <span onClick={() => !loading && navigate("/register")}>
-            Register
+          Already have an account?{" "}
+          <span onClick={() => !loading && navigate("/login")}>
+            Sign in
           </span>
         </p>
       </div>
@@ -104,4 +104,5 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
+

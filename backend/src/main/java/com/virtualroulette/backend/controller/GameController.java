@@ -1,42 +1,44 @@
 package com.virtualroulette.backend.controller;
 
-import com.virtualroulette.backend.model.BetType;
-import com.virtualroulette.backend.repository.BetRepository;
-import jakarta.persistence.Entity;
+import com.virtualroulette.backend.dto.BetRequest;
+import com.virtualroulette.backend.model.WheelResult;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.virtualroulette.backend.service.GameService;
-import com.virtualroulette.backend.model.Bet;
-import com.virtualroulette.backend.model.User;
-import org.springframework.web.servlet.function.EntityResponse;
 
+//Game Controller handles all the http requests for the game itself returning the wanted information
+//An entry point for the api
 
 @RestController
 @RequestMapping("/api/game")
 public class GameController {
 
     private final GameService gameService;
-    private final BetRepository betRepository;
 
-    public GameController(GameService gameService, BetRepository betRepository){
+    public GameController(GameService gameService){
         this.gameService = gameService;
-        this.betRepository = betRepository;
     }
 
     @PostMapping("/play")
-    public ResponseEntity<?> play(
-            @RequestParam Long userId,
-            @RequestParam BetType betType,
-            @RequestParam double amount,
-            @RequestParam int number){
+    public ResponseEntity<?> play(@RequestBody BetRequest request){
         try{
-            Map<String,Object> result = gameService.playBet(userId,betType,amount,number);
+            Map<String,Object> result = gameService
+                  .playBet(
+                          request.getUserId(),request.getBetType(),
+                          request.getAmount(),request.getNumber());
             return ResponseEntity.ok(result);
         }
         catch(RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+    }
+
+    @GetMapping("/spin")
+    public ResponseEntity<WheelResult> spin(){
+        int number = gameService.spinWheel();
+        String color = gameService.getColorForNumber(number);
+        return ResponseEntity.ok(new WheelResult(number, color));
     }
 }
