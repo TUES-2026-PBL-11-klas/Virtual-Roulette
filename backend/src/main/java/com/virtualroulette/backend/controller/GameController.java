@@ -1,7 +1,7 @@
 package com.virtualroulette.backend.controller;
 
 import com.virtualroulette.backend.dto.BetRequest;
-import com.virtualroulette.backend.model.BetType;
+import com.virtualroulette.backend.model.WheelResult;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +33,12 @@ public class GameController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+    }
+
+    @GetMapping("/spin")
+    public ResponseEntity<WheelResult> spin(){
+        int number = gameService.spinWheel();
+        String color = gameService.getColorForNumber(number);
+        return ResponseEntity.ok(new WheelResult(number, color));
     }
 }

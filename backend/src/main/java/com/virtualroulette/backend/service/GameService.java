@@ -38,6 +38,13 @@ public class GameService {
         return false;
     }
 
+    public String getColorForNumber(int number){
+        if (number == 0) {
+            return "GREEN";
+        }
+        return isRed(number) ? "RED" : "BLACK";
+    }
+
     public double calculatePayout(BetType type, int number, double amount, int result){
         double payout = 0.0;
         switch(type){
