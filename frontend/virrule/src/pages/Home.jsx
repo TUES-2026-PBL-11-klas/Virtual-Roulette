@@ -19,13 +19,17 @@ function Home() {
   const [totalSpins, setTotalSpins] = useState(0);
   const [totalLoss, setTotalLoss] = useState(0);
   const [totalWager, setTotalWager] = useState(0);
+  const [balance, setBalance] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const stored = localStorage.getItem("user");
     if (!stored) {
       navigate("/login");
+      return;
     }
+    const user = JSON.parse(stored);
+    setBalance(user.balance);
   }, [navigate]);
 
   const handleAddChipsClick = () => {
@@ -86,7 +90,41 @@ function Home() {
     setSpinColor(null);
 
     try {
-      const response = await fetch("/api/game/spin");
+      const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      for (const bet of bets) {
+        const res = await fetch("/api/game/play", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            userId: user.id,
+            betType: bet.type,
+            amount: bet.amount,
+            number: bet.numbers?.[0] ?? 0
+          })
+        });
+
+        if (!res.ok) {
+          const error = await res.text();
+          alert(error);
+          setIsSpinning(false);
+          setIsSpinModalOpen(false);
+          return;
+        }
+
+        const data = await res.json();
+        if (data.newBalance !== undefined) {
+          setBalance(data.newBalance);
+        }
+      }
+
+      const response = await fetch("/api/game/spin", {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
       if (!response.ok) {
         throw new Error("Failed to spin wheel");
       }
@@ -173,6 +211,11 @@ function Home() {
         <header className="home-header">
           <h1>Virtual Roulette</h1>
           <p>Place your bets</p>
+          {balance !== null && (
+              <div className="balance-display">
+                Balance: <span>{Number(balance).toFixed(2)}</span>
+              </div>
+          )}
         </header>
 
         <main className="home-content">
@@ -238,41 +281,16 @@ function Home() {
 
           <div className="simulation-actions">
             <span className="simulation-label">Simulate:</span>
-            <button
-                className="sim-btn"
-                type="button"
-                onClick={() => handleSimulateSpins(100)}
-                disabled={isSpinning}
-            >
-              100
-            </button>
-            <button
-                className="sim-btn"
-                type="button"
-                onClick={() => handleSimulateSpins(1000)}
-                disabled={isSpinning}
-            >
-              1,000
-            </button>
-            <button
-                className="sim-btn"
-                type="button"
-                onClick={() => handleSimulateSpins(10000)}
-                disabled={isSpinning}
-            >
-              10,000
-            </button>
+            <button className="sim-btn" type="button" onClick={() => handleSimulateSpins(100)} disabled={isSpinning}>100</button>
+            <button className="sim-btn" type="button" onClick={() => handleSimulateSpins(1000)} disabled={isSpinning}>1,000</button>
+            <button className="sim-btn" type="button" onClick={() => handleSimulateSpins(10000)} disabled={isSpinning}>10,000</button>
             <div className="loss-summary">
               <span className="loss-label">Total spins:</span>
               <span className="loss-value">{totalSpins}</span>
               <span className="loss-label">Total sum:</span>
-              <span className="loss-value">
-              {totalWager.toFixed(2)}
-            </span>
+              <span className="loss-value">{totalWager.toFixed(2)}</span>
               <span className="loss-label">Total loss:</span>
-              <span className="loss-amount">
-              -{totalLoss.toFixed(2)}
-            </span>
+              <span className="loss-amount">-{totalLoss.toFixed(2)}</span>
             </div>
           </div>
           <Information />
@@ -289,14 +307,13 @@ function Home() {
             onClose={closeSpinModal}
         />
 
-        <LossTracker                                    // ← ADD HERE
+        <LossTracker
             totalLoss={totalLoss}
             totalSpins={totalSpins}
             totalWager={totalWager}
         />
 
         {showComments && <Comments />}
-
       </div>
   );
 }

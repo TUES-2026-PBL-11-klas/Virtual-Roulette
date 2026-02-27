@@ -681,3 +681,17 @@
   border-top: 1px solid rgba(224, 92, 92, 0.3);
   padding-top: 8px;
 }
+
+.balance-display {
+  margin-top: 8px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.balance-display span {
+  color: var(--gold);
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+}
